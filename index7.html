@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        async function disp(){
+            const fileurl=`http://api.weatherstack.com/current?access_key=bcf592700cfbab3f31581cc724b8c4eb&query=delhi`;
+            fetch(fileurl).then(c=>c.json()).then(t=>console.log(t.current.temperature));
+
+        }
+        disp();
+
+    </script>
+</body>
+</html>

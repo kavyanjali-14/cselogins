@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables</title>
+</head>
+<body>
+    <center>
+        <table id="jsondata" border="1">
+            <th>
+                name
+            </th>
+            <th>
+                mobile
+            </th>
+            <th>
+                city
+            </th>
+            <th>
+                email
+            </th>
+            <tbody>
+
+            </tbody>
+        </table>
+    </center>
+    <script>
+        const csejson=[
+        {
+            "name":"kavya",
+            "mobile":"123456789",
+            "city":"kkd",
+            "email":"kavya@gmail.com"
+
+        },
+        {
+            "name":"navya",
+            "mobile":"123586789",
+            "city":"rjy",
+            "email":"navya@gmail.com"
+
+        },
+        {
+            "name":"bhavya",
+            "mobile":"165486789",
+            "city":"vizag",
+            "email":"bhavya@gmail.com"
+
+        },
+        {
+            "name":"sapnathi",
+            "mobile":"794512659",
+            "city":"tuni",
+            "email":"sapanthi@gmail.com"
+
+        },
+        
+        ];
+        const tableBody=document.querySelector("#jsondata tbody");
+        csejson.forEach(students=>{
+            const row=document.createElement("tr");
+            const nametd=document.createElement("td");
+            nametd.textContent=students.name;
+            row.appendChild(nametd);
+            const mobiletd=document.createElement("td");
+            mobiletd.textContent=students.mobile;
+            row.appendChild(mobiletd);
+            const citytd=document.createElement("td");
+            citytd.textContent=students.city;
+            row.appendChild(citytd);
+            const emailtd=document.createElement("td");
+            emailtd.textContent=students.email;
+            row.appendChild(emailtd);
+            tableBody.appendChild(row);
+        })
+    </script>
+</body>
+</html>

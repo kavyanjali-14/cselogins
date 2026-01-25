@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student CGPA Details</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f4f6f8
+}
+
+h1{
+    text-align:center
+}
+
+.form-container,table{
+    width:85%;
+    margin:20px auto;
+    background:#fff;
+    padding:15px
+}
+
+table{
+    border-collapse:collapse
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center
+}
+
+/* HEADER FONT → JOKERMAN */
+th{
+    background:#f174b1;
+    color:white;
+    font-family:"Jokerman","Comic Sans MS",cursive;
+    font-size:18px;
+}
+
+/* DATA FONT → COMIC SANS */
+td{
+    font-family:"Comic Sans MS",cursive;
+    font-size:16px;
+}
+
+.row{
+    display:flex;
+    margin-bottom:8px
+}
+
+label{
+    width:100px
+}
+
+input{
+    flex:1
+}
+
+button{
+    padding:8px 14px;
+    background:#f174b1;
+    color:white;
+    border:none;
+    cursor:pointer
+}
+</style>
+</head>
+
+<body>
+
+<h1>Student CGPA Details</h1>
+
+<div class="form-container">
+<form id="studentForm">
+
+<div class="row">
+<label>Roll No</label>
+<input id="_id" required>
+</div>
+
+<div class="row">
+<label>Name</label>
+<input id="name" required>
+</div>
+
+<div class="row">
+<label>Branch</label>
+<input id="branch" required>
+</div>
+
+<div class="row">
+<label>Email</label>
+<input id="email" required>
+</div>
+
+<div class="row">
+<label>Mobile</label>
+<input id="mobile" required>
+</div>
+
+<div class="row">
+<label>CGPA</label>
+<input id="cgpa" type="number" step="0.01" required>
+</div>
+
+<button type="submit">Submit</button>
+</form>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Roll No</th>
+<th>Name</th>
+<th>Branch</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>CGPA</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+
+<script>
+const tbody = document.getElementById("tableBody");
+
+function loadTable(){
+    tbody.innerHTML = "";
+    fetch("/cse")
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(item => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+            <td>${item.rollNo}</td>
+            <td>${item.name}</td>
+            <td>${item.branch}</td>
+            <td>${item.email}</td>
+            <td>${item.mobile}</td>
+            <td>${item.cgpa}</td>`;
+            tbody.appendChild(tr);
+        });
+    });
+}
+
+loadTable();
+
+document.getElementById("studentForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    fetch("/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            _id: document.getElementById("_id").value,
+            name: document.getElementById("name").value,
+            branch: document.getElementById("branch").value,
+            email: document.getElementById("email").value,
+            mobile: document.getElementById("mobile").value,
+            cgpa: document.getElementById("cgpa").value
+        })
+    })
+    .then(res => res.json())
+    .then(() => {
+        this.reset();
+        loadTable();
+    });
+});
+</script>
+
+</body>
+</html>

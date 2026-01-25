@@ -1,0 +1,37 @@
+html
+  head
+    style.
+      body {
+        background-color: pink;
+      }
+      table, tr, th, td {
+        border: 1px solid red;
+        border-radius: 5px;
+        text-align: center;
+        margin: auto;
+      }
+      h1, h2 {
+        color: red;
+        text-align: center;
+        font-family: Jokerman, cursive;
+      }
+  body
+    h1 Aditya University
+    h2 Department of CSE
+    hr
+    table
+      tr
+        th ID
+        th NAME
+        th BRANCH
+        th COLLEGE
+        th MARKS
+        th GRADE
+      each i in data
+        tr
+          td= i.id
+          td= i.name
+          td= i.branch
+          td= i.college
+          td= i.marks
+          th= i.grade

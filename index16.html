@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Form and Table</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        background: #f4f4f4;
+        padding: 30px;
+    }
+
+    .container {
+        background: white;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+ #sid {
+        font-family: 'Jokerman', cursive;
+    }
+    button {
+        margin-top: 15px;
+        padding: 10px;
+        background: #a70ad7;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+         font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background: #a70ad7;
+        color: white;
+    }
+
+
+    #tableSection {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+
+<div class="container" id="formSection">
+    <h2>Student Registration</h2>
+
+    <label>ID</label>
+    <input type="text" id="sid">
+
+    <label>Name</label>
+    <input type="text" id="sname">
+
+    <label>Branch</label>
+    <input type="text" id="branch">
+
+    <label>Email</label>
+    <input type="text" id="email">
+
+    <label>Mobile</label>
+    <input type="text" id="mobile">
+
+    <label>CGPA</label>
+    <input type="text" id="cgpa">
+
+    <button onclick="addStudent()">Submit</button>
+</div>
+
+<div id="tableSection">
+
+<h2>Student Information Table</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Branch</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>CGPA</th>
+        </tr>
+    </thead>
+
+    <tbody id="tableBody">
+        <tr>
+            <td>23mh1a05k8</td>
+            <td>Kavya</td>
+            <td>CSE</td>
+            <td>Kavya@gmail.com</td>
+            <td>9876543210</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+<script>
+function addStudent() {
+    const id = document.getElementById("sid").value;
+    const name = document.getElementById("sname").value;
+    const branch = document.getElementById("branch").value;
+    const email = document.getElementById("email").value;
+    const mobile = document.getElementById("mobile").value;
+    const cgpa = document.getElementById("cgpa").value;
+
+    if (!id || !name || !branch || !email || !mobile || !cgpa) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    const row = `
+        <tr>
+            <td>${id}</td>
+            <td>${name}</td>
+            <td>${branch}</td>
+            <td>${email}</td>
+            <td>${mobile}</td>
+            <td>${cgpa}</td>
+        </tr>
+    `;
+
+    document.getElementById("tableBody").innerHTML += row;
+
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.getElementById("formSection").style.display = "none";
+    document.getElementById("tableSection").style.display = "block";
+}
+</script>
+
+</body>
+</html>

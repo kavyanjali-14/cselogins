@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form  name="cseclock">
+        <input type="text" size="8" name="clock">
+        
+    </form>
+
+    <script  language="javascript" type="text/javascript">
+        function show(){
+            var digital=new Date();
+            var hours=digital.getHours();
+            var minutes=digital.getMinutes();
+            var seconds=digital.getSeconds();
+
+            document.cseclock.clock.value=hours+":"+minutes+":"+seconds;
+            setTimeout("show()",1000);
+        }
+        show();
+
+    </script>
+</body>
+</html>

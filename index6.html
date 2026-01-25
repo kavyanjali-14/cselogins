@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        function rocks(){
+            var photo=document.getElementById("p");
+            var r=document.getElementById("size").value;
+            photo.style.height=r+'px';
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <img src="log.jpg" id="p" height="20px" alt="">
+        <input type="range" id="size" min="50" ma="1000" oninput="rocks()">
+    </form>
+</body>
+</html>

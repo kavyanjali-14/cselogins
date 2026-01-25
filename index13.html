@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather UI</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #0d0130, #B1E6F3);
+            height: 100vh;
+        }
+
+        .search-box {
+            margin-top: 30px;
+        }
+
+        .search-box input {
+            width: 260px;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .city {
+            font-size: 30px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .temp {
+            font-size: 140px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .condition {
+            font-size: 28px;
+            margin-top: -10px;
+        }
+
+        .minmax {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-box">
+        <input id="search" type="text" placeholder="Search for a city">
+    </div>
+
+    <div class="city">Loading...</div>
+    <div class="date"></div>
+
+    <div class="temp">--°C</div>
+
+    <div class="condition"></div>
+    <div class="minmax"></div>
+
+
+    <script>
+        const apiKey = "c46154b9d154477e94bbd3fdfdcd8bd4";
+
+        document.getElementById("search").addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                let location = e.target.value.trim();
+                if (location !== "") {
+                    getWeather(location);
+                }
+            }
+        });
+
+        function formatDate() {
+            const d = new Date();
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            return d.toLocaleDateString("en-US", options);
+        }
+
+        async function getWeather(location) {
+            const url = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.error) {
+                    document.querySelector(".city").textContent = "Location not found!";
+                    document.querySelector(".temp").textContent = "--°C";
+                    document.querySelector(".condition").textContent = "";
+                    document.querySelector(".minmax").textContent = "";
+                    return;
+                }
+
+                document.querySelector(".city").textContent =
+                    `${data.location.name}, ${data.location.region}`;
+
+                document.querySelector(".date").textContent = formatDate();
+
+                document.querySelector(".temp").textContent =
+                    data.current.temperature + "°C";
+
+                document.querySelector(".condition").textContent =
+                    data.current.weather_descriptions[0];
+
+                document.querySelector(".minmax").textContent =
+                    `Feels like: ${data.current.feelslike}°C`;
+
+            } catch (error) {
+                document.querySelector(".city").textContent = "Error fetching weather!";
+            }
+        }
+
+        getWeather("Manila");
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clock Design</title>
+    <style>
+        body {
+            background-color:#EAC7C7 ;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 80px;
+            color: black;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin-bottom: 50px;
+        }
+
+        .box {
+            display: inline-block;
+            background-color: #E8A2A2;
+            padding: 25px;
+            width: 90px;
+            font-size: 40px;
+            border-radius: 15px;
+            margin: 10px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .date {
+            margin-top: 40px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="year">2024</h1>
+
+    <div class="box" id="hours">12</div>
+    <div class="box" id="minutes">30</div>
+    <div class="box" id="seconds">45</div>
+    <div class="box" id="ampm">AM</div>
+
+    <div class="date" id="dayMonth">Mon | January</div>
+
+<script>
+    function updateClock() {
+        let now = new Date();
+
+        let hrs = now.getHours();
+        let min = now.getMinutes();
+        let sec = now.getSeconds();
+
+        let ampm = hrs >= 12 ? "PM" : "AM";
+        let displayHrs = hrs % 12;
+        displayHrs = displayHrs ? displayHrs : 12;
+
+        let year = now.getFullYear();
+        let day = now.toLocaleString('en-US', { weekday: 'short' });
+        let month = now.toLocaleString('en-US', { month: 'long' });
+
+        document.getElementById("hours").innerHTML = displayHrs < 10 ? "0" + displayHrs : displayHrs;
+        document.getElementById("minutes").innerHTML = min < 10 ? "0" + min : min;
+        document.getElementById("seconds").innerHTML = sec < 10 ? "0" + sec : sec;
+
+        document.getElementById("ampm").innerHTML = ampm;
+
+        document.getElementById("year").innerHTML = year;
+        document.getElementById("dayMonth").innerHTML = day + " | " + month;
+    }
+
+    setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
